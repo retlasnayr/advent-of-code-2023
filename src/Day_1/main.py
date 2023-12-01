@@ -49,12 +49,6 @@ Part_2.set_solution(Solution2)
 
 if __name__ == "__main__":
     
-    Part_1.run_example()
-    Part_1.display_example()
-    Part_1.run_real()
-    Part_1.display_real()
-
-    Part_2.run_example()
-    Part_2.run_real()
-    Part_2.display_results()
+    Part_1.run_display_all()
+    Part_2.run_display_all()
     

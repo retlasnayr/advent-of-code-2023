@@ -69,3 +69,9 @@ class AdventOfCodePart:
     def display_results(self):
         self.display_example()
         self.display_real()
+
+    def run_display_all(self):
+        self.run_example()
+        self.run_real()
+        self.display_results()
+        
