@@ -9,10 +9,11 @@ class Solution(utils.AdventOfCodeSolution):
     def main(self, input_data):
         total = 0
         for row in input_data:
-            total += self.process_row(self, row)
+            total += self.process_row(row)
         return total
 
-    def process_row(self, row):
+    @staticmethod
+    def process_row(row):
         nums = []
         for character in row:
             try:
@@ -27,19 +28,20 @@ Part_1.set_solution(Solution)
 Part_2 = utils.AdventOfCodePart(Day, 2)
 class Solution2(Solution):
     def __init__(self):
-        Solution.__init__()
+        Solution.__init__(self)
     
-    def process_row(self, row):
+    @staticmethod
+    def process_row(row):
         num_words = {"one":1, "two":2, "three":3, "four":4, "five":5, "six":6, "seven":7, "eight":8, "nine":9}
         nums = []
-        for index in range(len(row)):
+        for index, character in enumerate(row):
             try:
-                nums.append(int(row[index]))
+                nums.append(int(character))
             except ValueError:
-                for word in num_words:
+                for word, value in num_words.items():
                     try:
                         if row[index:index+len(word)] == word:
-                            nums.append(num_words[word])
+                            nums.append(value)
                     except IndexError:
                         continue
         return int(f"{nums[0]}{nums[-1]}")
