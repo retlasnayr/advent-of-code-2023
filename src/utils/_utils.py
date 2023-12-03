@@ -40,7 +40,7 @@ class AdventOfCodePart:
         part = self.part_number
         day = self.day.day_number
         example, real = self.read_input(day, part, False), self.read_input(day, part, True)
-        if not example and real:
+        if not (example and real):
             # If part 2 files are empty, reuse part 1
             example, real = self.read_input(day, 1, False), self.read_input(day, 1, True)
         return example, real
