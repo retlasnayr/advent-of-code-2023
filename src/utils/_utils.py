@@ -34,7 +34,7 @@ class AdventOfCodePart:
         file_dir = pathlib.Path(pathlib.Path().resolve(), "inputs")
         with open(pathlib.Path(file_dir, file_name), encoding="UTF-8") as f:
             contents = f.readlines()
-        return contents
+        return [x.replace("\n", "") for x in contents]
 
     def load_inputs(self):
         part = self.part_number
