@@ -73,5 +73,6 @@ class AdventOfCodePart:
     def run_display_all(self):
         self.run_example()
         self.run_real()
+        print(f"\nPart {self.part_number}:")
         self.display_results()
         
