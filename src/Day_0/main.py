@@ -12,7 +12,7 @@ class Solution(utils.AdventOfCodeSolution):
 
 
 
-Part_1.set_solution(Solution)
+Part_1.set_solution(Solution())
 
 if __name__ == "__main__":
     

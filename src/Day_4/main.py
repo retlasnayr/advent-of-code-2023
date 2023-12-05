@@ -27,7 +27,7 @@ class Solution(utils.AdventOfCodeSolution):
         return [x for x in l if x != ""]
     
     def score_row(self, winning_nums, elf_nums):
-        matches = self.count_matches(self, winning_nums, elf_nums)
+        matches = self.count_matches(winning_nums, elf_nums)
         score = 2**matches
         return score
 
@@ -38,7 +38,7 @@ class Solution(utils.AdventOfCodeSolution):
                 count += 1
         return count
 
-Part_1.set_solution(Solution)
+Part_1.set_solution(Solution())
 
 Part_2 = utils.AdventOfCodePart(Day, 2)
 
@@ -49,9 +49,9 @@ class Solution2(Solution):
     def main(self, input_data):
         cards = {}
         for row in input_data:
-            card_no, w, e = self.parse_row(self, row)
-            cards[card_no] = {"matches": self.count_matches(self, w, e), "copies": 1}
-        return self.process_cards(self, cards)
+            card_no, w, e = self.parse_row(row)
+            cards[card_no] = {"matches": self.count_matches(w, e), "copies": 1}
+        return self.process_cards(cards)
     
     def process_cards(self, cards):
         for card_no, data in cards.items():
@@ -59,7 +59,7 @@ class Solution2(Solution):
                 cards[card_no + i + 1]["copies"] += data["copies"]
         return sum(x["copies"] for x in cards.values())
 
-Part_2.set_solution(Solution2)
+Part_2.set_solution(Solution2())
 
 if __name__ == "__main__":
     

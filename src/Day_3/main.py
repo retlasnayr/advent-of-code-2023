@@ -20,7 +20,7 @@ class Solution(utils.AdventOfCodeSolution):
                 if col not in nums:
                     chars.add(col)
         # return chars
-        return self.iterate_data_grid(self)
+        return self.iterate_data_grid()
 
     def iterate_data_grid(self):
         current_number = ""
@@ -36,7 +36,7 @@ class Solution(utils.AdventOfCodeSolution):
                 try:
                     int_val = int(value)
                     current_number += value
-                    is_part_number = is_part_number or self.check_adjacencies(self, row_num, col_num)
+                    is_part_number = is_part_number or self.check_adjacencies(row_num, col_num)
                     
                 except ValueError:
                     if is_part_number:
@@ -49,7 +49,7 @@ class Solution(utils.AdventOfCodeSolution):
         return total_part_nos
 
     def check_adjacencies(self, row_num, col_num):
-        adjacencies = self.get_adjacencies(self, row_num, col_num)
+        adjacencies = self.get_adjacencies(row_num, col_num)
         for row, col in adjacencies:
             character = self.data_grid[row][col]
             # if character == ".":
@@ -70,7 +70,7 @@ class Solution(utils.AdventOfCodeSolution):
                     adjs.append((new_row, new_col))
         return adjs
 
-Part_1.set_solution(Solution)
+Part_1.set_solution(Solution())
 
 class Solution2(Solution):
     def __init__(self):
@@ -94,7 +94,7 @@ class Solution2(Solution):
                 try:
                     int_val = int(value)
                     current_number += value
-                    curr_is_part_number, curr_gear_loc = self.check_adjacencies(self, row_num, col_num)
+                    curr_is_part_number, curr_gear_loc = self.check_adjacencies(row_num, col_num)
                     gear_loc = gear_loc if gear_loc else curr_gear_loc
                     is_part_number = is_part_number or curr_is_part_number
                     
@@ -112,7 +112,7 @@ class Solution2(Solution):
         return sum(x * y for x, y in double_gears)
 
     def check_adjacencies(self, row_num, col_num):
-        adjacencies = self.get_adjacencies(self, row_num, col_num)
+        adjacencies = self.get_adjacencies(row_num, col_num)
         for row, col in adjacencies:
             character = self.data_grid[row][col]
             if character == "*":
@@ -120,7 +120,7 @@ class Solution2(Solution):
         return False, ()
 
 Part_2 = utils.AdventOfCodePart(Day, 2)
-Part_2.set_solution(Solution2)
+Part_2.set_solution(Solution2())
 
 if __name__ == "__main__":
     

@@ -23,7 +23,7 @@ class Solution(utils.AdventOfCodeSolution):
             nums.append(num)
         return int(f"{nums[0]}{nums[-1]}")
 
-Part_1.set_solution(Solution)
+Part_1.set_solution(Solution())
 
 Part_2 = utils.AdventOfCodePart(Day, 2)
 class Solution2(Solution):
@@ -45,7 +45,7 @@ class Solution2(Solution):
                     except IndexError:
                         continue
         return int(f"{nums[0]}{nums[-1]}")
-Part_2.set_solution(Solution2)
+Part_2.set_solution(Solution2())
 
 if __name__ == "__main__":
     
