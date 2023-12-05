@@ -4,7 +4,7 @@ class AdventOfCodeSolution:
         self.result = None
 
     def run(self, input_data):
-        self.result = self.main(self, input_data)
+        self.result = self.main(input_data)
 
     def main(self, input_data):
         return None
@@ -53,11 +53,11 @@ class AdventOfCodePart:
         return self._solution
 
     def run_example(self):
-        self._solution.run(self._solution, self.input_example)
+        self._solution.run(self.input_example)
         self.result_example = self._solution.result
 
     def run_real(self):
-        self._solution.run(self._solution, self.input_real)
+        self._solution.run(self.input_real)
         self.result_real = self._solution.result
 
     def display_example(self):
@@ -72,7 +72,9 @@ class AdventOfCodePart:
 
     def run_display_all(self):
         self.run_example()
-        self.run_real()
         print(f"\nPart {self.part_number}:")
-        self.display_results()
+        self.display_example()
+        
+        self.run_real()
+        self.display_real()
         
