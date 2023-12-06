@@ -76,6 +76,12 @@ class Solution2(Solution):
                     result = res
         return result
 
+    def iterate_map(map):
+        sorted_map = sorted(map, key = "dest_start")
+        for item in sorted_map:
+            
+
+
 Part_2 = utils.AdventOfCodePart(Day, 2)
 Part_2.set_solution(Solution2())
 
