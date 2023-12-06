@@ -29,12 +29,8 @@ class Solution(utils.AdventOfCodeSolution):
 
 
 
-Part_1.set_solution(Solution)
+Part_1.set_solution(Solution())
 
 if __name__ == "__main__":
-    
-    Part_1.run_example()
-    Part_1.display_example()
-    Part_1.run_real()
-    Part_1.display_real()
+    Part_1.run_display_all()
     """)
