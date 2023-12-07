@@ -23,6 +23,7 @@ class AdventOfCodePart:
         self.day = day
         self.part_number = part_number
         self.input_example, self.input_real = self.load_inputs()
+        self._solution_class = None
         self._solution = None
         self.result_example = None
         self.result_real = None
@@ -49,14 +50,16 @@ class AdventOfCodePart:
         return self.input_real if real else self.input_example
     
     def set_solution(self, solution: AdventOfCodeSolution):
-        self._solution = solution
-        return self._solution
+        self._solution_class = solution
+        return self._solution_class()
 
     def run_example(self):
+        self._solution = self._solution_class()
         self._solution.run(self.input_example)
         self.result_example = self._solution.result
 
     def run_real(self):
+        self._solution = self._solution_class()
         self._solution.run(self.input_real)
         self.result_real = self._solution.result
 
