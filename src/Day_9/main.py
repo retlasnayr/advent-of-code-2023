@@ -27,6 +27,18 @@ class Solution(utils.AdventOfCodeSolution):
 
 Part_1.set_solution(Solution)
 
+class Solution2(Solution):
+    def __init__(self):
+        super().__init__()
+    
+    def parse_row(self, row):
+        return super().parse_row(row)[::-1]
+
+    
+Part_2 = utils.AdventOfCodePart(Day, 2)
+Part_2.set_solution(Solution2)
+
 if __name__ == "__main__":
     Part_1.run_display_all()
+    Part_2.run_display_all()
     
