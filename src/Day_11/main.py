@@ -3,16 +3,6 @@ Day = utils.AdventOfCodeDay(11)
 Part_1 = utils.AdventOfCodePart(Day, 1)
 
 
-class Pair:
-    def __init__(self, x1, x2):
-        self.x1 = x1
-        self.x2 = x2
-
-    def __eq__(self, other):
-        if not isinstance(other, Pair):
-            raise TypeError
-        return (self.x1 == other.x1 and self.x2 == other.x2) or (self.x1 == other.x2 and self.x2 == other.x1)
-    
 class Solution(utils.AdventOfCodeSolution):
     def __init__(self):
         utils.AdventOfCodeSolution.__init__(self)
@@ -51,16 +41,14 @@ class Solution(utils.AdventOfCodeSolution):
                     self.galaxies.append((row_num, col_num))
     
     def pair_galaxies(self):
-        for galaxy in self.galaxies:
-            for galaxy2 in self.galaxies:
-                if galaxy != galaxy2:
-                    pair = Pair(galaxy, galaxy2)
-                    if pair not in self.galaxy_pairs:
-                        self.galaxy_pairs.append(pair)
+        for index, galaxy in enumerate(self.galaxies):
+            for galaxy2 in self.galaxies[index+1:]:
+                self.galaxy_pairs.append((galaxy, galaxy2))
+                
 
     def distance(self, pair):
-        row_diff = abs(pair.x1[0] - pair.x2[0])
-        col_diff = abs(pair.x1[1] - pair.x2[1])
+        row_diff = abs(pair[0][0] - pair[1][0])
+        col_diff = abs(pair[0][1] - pair[1][1])
         return row_diff + col_diff
 
 
