@@ -54,6 +54,55 @@ class Solution(utils.AdventOfCodeSolution):
 
 Part_1.set_solution(Solution)
 
+
+Part_2 = utils.AdventOfCodePart(Day, 2)
+
+class Solution2(Solution):
+    MULTIPLIER = 1_000_000 - 1
+    def __init__(self):
+        super().__init__()
+        self.expansion_rows = []
+        self.expansion_columns = []
+
+    def main(self, input_data):
+        self.get_expansion_data(input_data)
+        self.universe_data = input_data
+        self.parse_in_galaxies()
+        self.pair_galaxies()
+        total = 0
+        for gp in self.galaxy_pairs:
+            total += self.distance(gp)
+        return total
+
+
+    def get_expansion_data(self, data):
+        self.expansion_rows = self.get_expansion_rows(data)
+        self.expansion_columns = self.get_expansion_rows(list(map(list, zip(*data))))
+
+    def get_expansion_rows(self, data):
+        exp_rows = []
+        for index, row in enumerate(data):
+            if all(x=="." for x in row):
+                exp_rows.append(index)
+        return exp_rows
+    
+    def distance(self, pair):
+        g1, g2 = pair
+        min_x = min(g1[0], g2[0])
+        max_x = max(g1[0], g2[0])
+        min_y = min(g1[1], g2[1])
+        max_y = max(g1[1], g2[1])
+        count = 0
+        for index in range(min_x, max_x):
+            if index in self.expansion_rows:
+                count += 1
+        for index in range(min_y, max_y):
+            if index in self.expansion_columns:
+                count += 1
+        return max_x + max_y - min_x - min_y + count * self.MULTIPLIER
+    
+Part_2.set_solution(Solution2)
+
 if __name__ == "__main__":
     Part_1.run_display_all()
-    
+    Part_2.run_display_all()
