@@ -20,12 +20,19 @@ class Cell:
         self.character = character
         self.energized = False
 
+    def __repr__(self) -> str:
+        return "#" if self.energized else "."
+
 class Beam:
     def __init__(self, direction = Pair(1, 0), location = Pair(0, 0)):
         self.direction = direction
         self.location = location
+        self.path = []
 
     def encounter_cell(self, cell: Cell):
+        if (self.location, self.direction) in self.path:
+            return []
+        self.path.append((self.location, self.direction))
         cell.energized = True
         if cell.character == ".":
             pass
@@ -59,10 +66,12 @@ class Solution(utils.AdventOfCodeSolution):
         utils.AdventOfCodeSolution.__init__(self)
         self.datagrid = []
         self.beams = [Beam()]
+        self.path = []
 
     def main(self, input_data):
         self.parse_input(input_data)
         self.iterate()
+        self.display_energized()
         return sum(sum(x.energized for x in row) for row in self.datagrid)
     
     def parse_input(self, input_data):
@@ -72,16 +81,27 @@ class Solution(utils.AdventOfCodeSolution):
     def iterate(self):
         while len(self.beams) > 0:
             current_beam = self.beams.pop(0)
-            if self.outside_grid(current_beam.location):
+            if self.outside_grid(current_beam.location) or self.already_visited(current_beam):
                 # self.beams.pop(0)
                 continue
-            beam_location_cell = self.datagrid[current_beam.location.x][current_beam.location.y]
+            self.path.append((current_beam.location, current_beam.direction))
+            beam_location_cell = self.datagrid[current_beam.location.y][current_beam.location.x]
             self.beams.extend(current_beam.encounter_cell(beam_location_cell))
+            # self.display_energized()
+            continue
         
             
     def outside_grid(self, location):
         return location.x < 0 or location.x >= len(self.datagrid[0]) or location.y < 0 or location.y >= len(self.datagrid)
+    
+    def already_visited(self, beam):
+        return (beam.location, beam.direction) in self.path
+        
 
+    def display_energized(self):
+        print("\n")
+        for row in self.datagrid:
+            print("".join(str(x) for x in row))
 
 
 Part_1.set_solution(Solution)
