@@ -72,9 +72,13 @@ class Solution(utils.AdventOfCodeSolution):
         self.parse_input(input_data)
         self.iterate()
         self.display_energized()
-        return sum(sum(x.energized for x in row) for row in self.datagrid)
+        return self.total_energized_cells()
     
+    def total_energized_cells(self):
+        return sum(sum(x.energized for x in row) for row in self.datagrid)
+
     def parse_input(self, input_data):
+        self.datagrid = []
         for row in input_data:
             self.datagrid.append([Cell(x) for x in row])
 
@@ -92,7 +96,7 @@ class Solution(utils.AdventOfCodeSolution):
         
             
     def outside_grid(self, location):
-        return location.x < 0 or location.x >= len(self.datagrid[0]) or location.y < 0 or location.y >= len(self.datagrid)
+        return location.x < 0 or location.x >= len(self.datagrid) or location.y < 0 or location.y >= len(self.datagrid[0])
     
     def already_visited(self, beam):
         return (beam.location, beam.direction) in self.path
@@ -104,8 +108,47 @@ class Solution(utils.AdventOfCodeSolution):
             print("".join(str(x) for x in row))
 
 
+class Solution2(Solution):
+    def __init__(self):
+        self.num_rows = None
+        self.num_cols = None
+        self.max_energized = 0
+
+    def main(self, input_data):
+        self.parse_input(input_data)
+        num_rows = len(self.datagrid)
+        num_cols = len(self.datagrid[0])
+        # self.run_full_iteration(Pair(3, 0), Pair(0, 1))
+        for col in range(num_cols):
+            print(f"Column {col}")
+            self.run_full_iteration(Pair(col, 0), Pair(0, 1))
+            self.run_full_iteration(Pair(col, num_rows - 1), Pair(0, -1))
+        for row in range(num_rows):
+            print(f"Row {row}")
+            self.run_full_iteration(Pair(0, row), Pair(1, 0))
+            self.run_full_iteration(Pair(num_cols - 1, row), Pair(-1, 0))
+        return self.max_energized
+
+    def run_full_iteration(self, location, direction):
+        self.reset_datagrid()
+        self.beams = [Beam(direction, location)]
+        self.path = []
+        self.iterate()
+        # self.display_energized()
+        if self.total_energized_cells() > self.max_energized:
+            self.max_energized = self.total_energized_cells()
+
+    def reset_datagrid(self):
+        for row in self.datagrid:
+            for cell in row:
+                cell.energized = False
+
 Part_1.set_solution(Solution)
 
+Part_2 = utils.AdventOfCodePart(Day, 2)
+Part_2.set_solution(Solution2)
+
 if __name__ == "__main__":
-    Part_1.run_display_all()
+    # Part_1.run_display_all()
+    Part_2.run_display_all()
     
